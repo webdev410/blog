@@ -1,6 +1,7 @@
 [
   {
     "id": 1,
+    "title": "Sample Title",
     "text": "This is a sample post",
     "user_id": 1
   }

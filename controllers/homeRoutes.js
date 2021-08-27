@@ -1,20 +1,18 @@
 const router = require("express").Router();
-const User = require("../models/User");
-
+const { Post, User } = require("../models");
 const withAuth = require("../utils/auth");
 
 router.get("/", withAuth, async (req, res) => {
   try {
-    // creates a users object for admin dashboard reporting
-    const userData = await User.findAll({
-      attributes: { exclude: ["password"] },
-      order: [["username", "ASC"]],
+    // gets all posts to display on the page
+    const postData = await Post.findAll({
+      attributes: ["title", "text", "createdAt"],
     });
 
-    const users = userData.map((project) => project.get({ plain: true }));
+    const posts = postData.map((post) => post.get({ plain: true }));
 
-    console.log(users);
     res.render("dashboard", {
+      posts,
       //pass data into page
       logged_in: req.session.logged_in,
       username: req.session.username,
