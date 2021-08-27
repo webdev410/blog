@@ -15,20 +15,20 @@ const PORT = process.env.PORT || 3001;
 const hbs = exphbs.create({ helpers });
 
 const sess = {
-    secret: "Super secret secret",
-    cookie: {
-        // Stored in milliseconds (86400 === 1 day)
-        maxAge: 86400,
-        // httpOnly tells express-session to only store session cookies when the protocol being used to connect to the server is HTTP.
-        httpOnly: true,
-        // secure tells express-session to only initialize session cookies when the protocol being used is HTTPS. Having this set to true, and running a server without encryption will result in the cookies not showing up in your developer console.
-        secure: false,
-    },
-    resave: false,
-    saveUninitialized: true,
-    store: new SequelizeStore({
-        db: sequelize,
-    }),
+  secret: "Super secret secret",
+  cookie: {
+    // Stored in milliseconds (86,400,000 === 1 day)
+    maxAge: 86400000,
+    // httpOnly tells express-session to only store session cookies when the protocol being used to connect to the server is HTTP.
+    httpOnly: true,
+    // secure tells express-session to only initialize session cookies when the protocol being used is HTTPS. Having this set to true, and running a server without encryption will result in the cookies not showing up in your developer console.
+    secure: false,
+  },
+  resave: false,
+  saveUninitialized: true,
+  store: new SequelizeStore({
+    db: sequelize,
+  }),
 };
 
 app.use(clog);
@@ -44,7 +44,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(routes);
 
 sequelize.sync({ force: false }).then(() => {
-    app.listen(PORT, () =>
-        console.log(`App listening at http://localhost:${PORT} 🚀`)
-    );
+  app.listen(PORT, () =>
+    console.log(`App listening at http://localhost:${PORT} 🚀`)
+  );
 });

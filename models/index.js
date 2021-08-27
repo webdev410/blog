@@ -1,8 +1,7 @@
-// ADD RELATIONSHIPS HERE
-
-const User = require('./User');
+const User = require("./User");
+const Post = require("./Post");
 
 module.exports = {
-    User
-
-}
+  User,
+  Post,
+};
