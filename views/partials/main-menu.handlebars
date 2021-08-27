@@ -1,9 +1,12 @@
 {{! MAIN NAVBAR }}
 <nav>
 
+  <a href="/home">Homepage</a>
   <a href="/">Dashboard</a>
-  <a href="" id="logout">Logout</a>
 
-  <p>Welcome, {{user.username}}</p>
+  {{#if logged_in}}
+    <a href="" id="logout">Logout</a>
+  {{/if}}
+  <p>Welcome, {{username}}</p>
 
 </nav>

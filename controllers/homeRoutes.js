@@ -14,7 +14,7 @@ router.get("/", withAuth, async (req, res) => {
     res.render("dashboard", {
       posts,
       //pass data into page
-      logged_in: req.session.logged_in,
+      logged_in: true,
       username: req.session.username,
       email: req.session.email,
       // page information
@@ -42,6 +42,19 @@ router.get("/register", (req, res) => {
   });
 });
 
-// ! FRONT END PAGE ROUTES HERE
+// * Route for /home
+router.get("/home", (req, res) => {
+  console.info(`${req.method} request received for homepage`);
+  if (!req.session.logged_in) {
+    res.redirect("/login");
+  } else {
+    res.render("home", {
+      email: req.session.email,
+      logged_in: true,
+      username: req.session.username,
+      title: "Home",
+    });
+  }
+});
 
 module.exports = router;

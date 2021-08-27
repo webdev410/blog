@@ -20,12 +20,9 @@
         <h1>Tech Blog | {{title}}</h1>
     </header>
 
-    {{#if logged_in}}
     {{>main-menu}}
-    {{/if}}
 
     {{{body}}}
-
 
     {{#if logged_in}}
     <script src="/js/logout.js"></script>
