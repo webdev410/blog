@@ -1,12 +1,41 @@
-{{! MAIN NAVBAR }}
-<nav>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="/">Tech Blog</a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarText"
+    aria-controls="navbarText"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/dashboard">Dashboard</a>
+      </li>
 
-  <a href="/home">Homepage</a>
-  <a href="/">Dashboard</a>
+    </ul>
+    {{#if logged_in}}
+      <span class="navbar-text">
+        Welcome,
+        {{username}}
+      </span>
+    {{/if}}
+    {{#if logged_in}}
 
-  {{#if logged_in}}
-    <a href="" id="logout">Logout</a>
-  {{/if}}
-  <p>Welcome, {{username}}</p>
+      <a class="nav-link" href="" id="logout">Logout</a>
 
+    {{else}}
+
+      <a class="nav-link" href="/login">Login</a>
+
+    {{/if}}
+
+  </div>
 </nav>
