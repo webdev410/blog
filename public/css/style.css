@@ -1,7 +1,6 @@
 .date {
     font-size: small;
     justify-content: start;
-    color: var(--secondary);
 }
 
 .post-link {
@@ -22,26 +21,4 @@ a:hover {
 
 .post-details {
     width: 80%;
-}
-
-#comment {
-    height: 50px;
-    outline: none;
-    border: none;
-    background-color: rgba(0, 0, 0, 0.040);
-    padding: 10px;
-}
-
-textarea {
-    resize: none;
-    min-height: fit-content;
-}
-
-form {
-    display: block;
-}
-
-.readComment {
-    background-color: pink;
-    padding: 10px;
 }
