@@ -6,7 +6,7 @@ router.get("/", async (req, res) => {
   try {
     // gets all posts to display on the page
     const postData = await Post.findAll({
-      attributes: ["title", "text", "createdAt"],
+      attributes: ["id", "title", "text", "createdAt"],
     });
 
     const posts = postData.map((post) => post.get({ plain: true }));

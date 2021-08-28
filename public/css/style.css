@@ -1,0 +1,12 @@
+.date {
+    font-size: small;
+    justify-content: start;
+}
+
+.post-link {
+    text-decoration: none;
+}
+
+.post-link:hover {
+    text-decoration: none;
+}

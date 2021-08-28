@@ -1,0 +1,21 @@
+{{#each post}}
+
+  <section class="card">
+    <a href="/painting/{{id}}">
+      <h5 class="card-header">
+        <p>Posted By:</p>
+        {{req.session.username}}
+      </h5>
+      <div class="card-body">
+        <h5 class="card-title">{{title}}</h5>
+
+        <p class="card-text"> {{text}}</p>
+        <p class="card-text date">
+          {{createdAt}}
+
+        </p>
+      </div>
+    </a>
+  </section>
+
+{{/each}}

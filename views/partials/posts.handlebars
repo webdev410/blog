@@ -1,10 +1,15 @@
-<div>
-  <h3>Posts</h3>
-</div>
-
 {{#each posts}}
-  <div class="card">
-    <h3>{{title}}</h3>
-    <p>{{text}}</p>
-  </div>
+
+  <a href="/api/post/{{id}}" class="post-link">
+    <div class="card">
+      <h5 class="card-header">
+        {{title}}
+      </h5>
+      <div class="card-body">
+        <p class="card-text date">
+          {{createdAt}}
+        </p>
+      </div>
+    </div>
+  </a>
 {{/each}}
