@@ -49,7 +49,6 @@ router.get("/dashboard", async (req, res) => {
   });
 
   const posts = postData.map((post) => post.get({ plain: true }));
-
   if (!req.session.logged_in) {
     res.redirect("/login");
   } else {
@@ -67,7 +66,7 @@ router.get("/dashboard", async (req, res) => {
 // * Front-End Route for one post's details
 router.get("/post/:id", async (req, res) => {
   const postData = await Post.findByPk(req.params.id, {
-    attributes: ["id", "title", "text", "createdAt"],
+    attributes: ["id", "title", "text", "createdAt", "user_id"],
     include: [
       {
         model: User,
@@ -77,7 +76,7 @@ router.get("/post/:id", async (req, res) => {
   });
 
   const post = postData.get({ plain: true });
-
+  console.log("posts-----------");
   res.render("post-details", {
     post,
     username: req.session.username,

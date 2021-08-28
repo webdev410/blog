@@ -4,9 +4,9 @@
     <a href="/post/{{post.id}}">
       <div class="card-header">
 
-        {{#if logged_in}}
+        {{#if post}}
           <p style="display: inline;">Posted By:</p>
-          <h5 style="display: inline;">{{username}}</h5>
+          <h5 style="display: inline;">{{post.user.username}}</h5>
         {{/if}}
       </div>
 
