@@ -1,6 +1,7 @@
 .date {
     font-size: small;
     justify-content: start;
+    color: rgba(0, 0, 0, 0.3);
 }
 
 .post-link {
@@ -21,4 +22,20 @@ a:hover {
 
 .post-details {
     width: 80%;
+}
+
+textarea {
+    resize: none;
+    border: none;
+    height: 50px;
+    background-color: rgb(0, 0, 0, .05);
+    padding: 15px;
+}
+
+i {
+    font-size: larger;
+}
+
+form {
+    display: block;
 }

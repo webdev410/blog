@@ -1,21 +1,22 @@
 <div class="row justify-content-center mt-3">
 
 	<section class="card post-details">
-		<a href="/post/{{post.id}}">
-			<div class="card-header">
+		<div class="card-header">
 
-				{{#if post}}
-					<p style="display: inline;">Posted By:</p>
-					<h5 style="display: inline;">{{post.user.username}}</h5>
-				{{/if}}
-			</div>
+			{{#if post}}
+				<i class="fas fa-user mr-2"></i>
+				<h5 style="display: inline;">{{post.user.username}}</h5>
+			{{/if}}
+		</div>
 
-			<div class="card-body">
+		<div class="card-body">
+			<p class="card-text date">{{format_date post.createdAt}}</p>
+			<a href="/post/{{post.id}}">
 				<h5 class="card-title">{{post.title}}</h5>
-				<p class="card-text"> {{post.text}}</p>
-				<p class="card-text date">{{format_date post.createdAt}}</p>
-			</div>
-		</a>
+			</a>
+			<p class="card-text"> {{post.text}}</p>
+		</div>
+{{>writeComment}}
 	</section>
 
 </div>

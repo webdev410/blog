@@ -1,14 +1,11 @@
 {{#each posts}}
 	<a href="/post/{{id}}" class="post-link">
 		<div class="card mt-3">
-			<h5 class="card-header">
+			<h3 class="card-header">
+				<p class="card-text date">{{format_date createdAt}}</p>
 				{{title}}
-			</h5>
-			<div class="card-body">
-				<p class="card-text date">
-					{{format_date createdAt}}
-				</p>
-			</div>
+			</h3>
+
 		</div>
 	</a>
 {{/each}}
