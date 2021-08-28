@@ -1,20 +1,26 @@
 [
-  {
-    "id": 1,
-    "title": "Post Title",
-    "text": "This is a sample post",
-    "user_id": 1
-  },
-  {
-    "id": 3,
-    "title": "Post #3",
-    "text": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Autem eveniet ex fugiat laboriosam, minima temporibus ullam recusandae odio exercitationem voluptas magni nesciunt repudiandae doloribus tempore? Officia aliquid illum molestias quaerat?",
-    "user_id": 1
-  },
-  {
-    "id": 4,
-    "title": "Post Four",
-    "text": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Autem eveniet ex fugiat laboriosam, minima temporibus ullam recusandae odio exercitationem voluptas magni nesciunt repudiandae doloribus tempore? Officia aliquid illum molestias quaerat?",
-    "user_id": 2
-  }
+	{
+		"id": 1,
+		"title": "Post Title",
+		"text": "This is a sample post",
+		"user_id": 1
+	},
+	{
+		"id": 2,
+		"title": "Post Two",
+		"text": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Autem eveniet ex fugiat laboriosam, minima temporibus ullam recusandae odio exercitationem voluptas magni nesciunt repudiandae doloribus tempore? Officia aliquid illum molestias quaerat?",
+		"user_id": 2
+	},
+	{
+		"id": 3,
+		"title": "Post Three",
+		"text": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Autem eveniet ex fugiat laboriosam, minima temporibus ullam recusandae odio exercitationem voluptas magni nesciunt repudiandae doloribus tempore? Officia aliquid illum molestias quaerat?",
+		"user_id": 1
+	},
+	{
+		"id": 4,
+		"title": "Post Four",
+		"text": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Autem eveniet ex fugiat laboriosam, minima temporibus ullam recusandae odio exercitationem voluptas magni nesciunt repudiandae doloribus tempore? Officia aliquid illum molestias quaerat?",
+		"user_id": 2
+	}
 ]

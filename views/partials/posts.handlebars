@@ -1,14 +1,14 @@
 {{#each posts}}
-  <a href="/post/{{id}}" class="post-link">
-    <div class="card mt-3">
-      <h5 class="card-header">
-        {{title}}
-      </h5>
-      <div class="card-body">
-        <p class="card-text date">
-          {{createdAt}}
-        </p>
-      </div>
-    </div>
-  </a>
+	<a href="/post/{{id}}" class="post-link">
+		<div class="card mt-3">
+			<h5 class="card-header">
+				{{title}}
+
+				<p class="card-text date">
+					{{format_date createdAt}}
+				</p>
+			</h5>
+
+		</div>
+	</a>
 {{/each}}
