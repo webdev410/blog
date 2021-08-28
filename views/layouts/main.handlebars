@@ -16,10 +16,13 @@
 </head>
 
 <body>
-
     {{>main-menu}}
-
-    {{{body}}}
+   
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            {{{body}}}
+        </div>
+    </div>
 
     {{#if logged_in}}
     <script src="/js/logout.js"></script>

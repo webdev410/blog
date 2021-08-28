@@ -1,15 +1,21 @@
-{{#each post}}
+
 
   <section class="card">
-    <a href="/painting/{{id}}">
-      <h5 class="card-header">
-        <p>Posted By:</p>
-        {{req.session.username}}
-      </h5>
-      <div class="card-body">
-        <h5 class="card-title">{{title}}</h5>
+    <a href="/post/{{post.id}}">
+      <div class="card-header ">
+        
+        {{#if logged_in}}
+        <p style="display: inline;">Posted By:</p>
+        <h5 style="display: inline;">
 
-        <p class="card-text"> {{text}}</p>
+        {{username}}
+        </h5>
+      </div>
+      {{/if}}
+      <div class="card-body">
+        <h5 class="card-title">{{post.title}}</h5>
+
+        <p class="card-text"> {{post.text}}</p>
         <p class="card-text date">
           {{createdAt}}
 
@@ -18,4 +24,3 @@
     </a>
   </section>
 
-{{/each}}

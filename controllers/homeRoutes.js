@@ -38,6 +38,7 @@ router.get("/register", (req, res) => {
     title: "Register",
   });
 });
+// ! FRONT END ROUTES
 
 // * Route for /dash
 router.get("/dashboard", async (req, res) => {
@@ -62,6 +63,27 @@ router.get("/dashboard", async (req, res) => {
       title: "Dashboard",
     });
   }
+});
+// * Front-End Route for one post's details
+router.get("/post/:id", async (req, res) => {
+  const postData = await Post.findByPk(req.params.id, {
+    attributes: ["id", "title", "text", "createdAt"],
+    include: [
+      {
+        model: User,
+        attributes: ["username", "email", "id"],
+      },
+    ],
+  });
+
+  const post = postData.get({ plain: true });
+
+  res.render("post-details", {
+    post,
+    username: req.session.username,
+    email: req.session.email,
+    logged_in: req.session.logged_in,
+  });
 });
 
 module.exports = router;
