@@ -2,8 +2,8 @@
 	<a href="/post/{{id}}" class="post-link">
 		<div class="card mt-3">
 			<h3 class="card-header">
-				<p class="card-text date">{{format_date createdAt}}</p>
-				{{title}}
+				<p class="card-text date">Published by {{user}}: {{format_date createdAt}}</p>
+				{{post_title}}
 			</h3>
 
 		</div>

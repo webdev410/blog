@@ -1,12 +1,22 @@
 [
-  {
-    "username": "Andrew",
-    "email": "andrewkeiser@gmail.com",
-    "password": "password"
-  },
-  {
-    "username": "L Figgy",
-    "email": "laurel@laurelfigueroa.com",
-    "password": "password"
-  }
+	{
+		"username": "Andrew",
+		"email": "andrewkeiser@gmail.com",
+		"password": "password"
+	},
+	{
+		"username": "L Figgy",
+		"email": "laurel@laurelfigueroa.com",
+		"password": "password"
+	},
+	{
+		"username": "Mike",
+		"email": "mike@example.com",
+		"password": "password"
+	},
+	{
+		"username": "Test User",
+		"email": "test@example.com",
+		"password": "password"
+	}
 ]

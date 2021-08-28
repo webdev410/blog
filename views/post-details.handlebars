@@ -10,13 +10,13 @@
 		</div>
 
 		<div class="card-body">
-			<p class="card-text date">{{format_date post.createdAt}}</p>
+			<p class="card-text date">Posted: {{format_date post.createdAt}}</p>
 			<a href="/post/{{post.id}}">
-				<h5 class="card-title">{{post.title}}</h5>
+				<h5 class="card-title">{{post.post_title}}</h5>
 			</a>
-			<p class="card-text"> {{post.text}}</p>
+			<p class="card-text"> {{post.post_body}}</p>
 		</div>
-{{>writeComment}}
+		{{>writeComment}}
 	</section>
 
 </div>
