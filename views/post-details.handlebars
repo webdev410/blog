@@ -1,26 +1,21 @@
+<div class="row justify-content-center mt-3">
 
-
-  <section class="card">
+  <section class="card post-details">
     <a href="/post/{{post.id}}">
-      <div class="card-header ">
-        
-        {{#if logged_in}}
-        <p style="display: inline;">Posted By:</p>
-        <h5 style="display: inline;">
+      <div class="card-header">
 
-        {{username}}
-        </h5>
+        {{#if logged_in}}
+          <p style="display: inline;">Posted By:</p>
+          <h5 style="display: inline;">{{username}}</h5>
+        {{/if}}
       </div>
-      {{/if}}
+
       <div class="card-body">
         <h5 class="card-title">{{post.title}}</h5>
-
         <p class="card-text"> {{post.text}}</p>
-        <p class="card-text date">
-          {{createdAt}}
-
-        </p>
+        <p class="card-text date">{{createdAt}}</p>
       </div>
     </a>
   </section>
 
+</div>

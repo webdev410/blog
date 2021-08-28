@@ -19,6 +19,6 @@ a:hover {
     text-decoration: none;
 }
 
-/* .card {
-   
-} */
+.post-details {
+    width: 80%;
+}
