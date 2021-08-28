@@ -4,7 +4,8 @@ const { Post, User, Comment } = require("../../models");
 const withAuth = require("../../utils/auth");
 
 // * Create a new comment
-router.post("/", async (req, res) => {
+// route is /api/comment
+router.post("/", withAuth, async (req, res) => {
 	try {
 		const newComment = req.body;
 		const commentData = await Comment.create({
@@ -21,7 +22,7 @@ router.post("/", async (req, res) => {
 router.get("/:id", withAuth, async (req, res) => {
 	console.info(`${req.method} request received for comment`);
 	try {
-		const thisComment = await Post.findAll({
+		const thisComment = await Comment.findAll({
 			attributes: [
 				"id",
 				"comment_body",
@@ -31,10 +32,10 @@ router.get("/:id", withAuth, async (req, res) => {
 			],
 			include: [
 				{
-					model: Comment,
-					attributes: ["id", "comment_body", "post_id", "user_id"],
+					model: Post,
+					attributes: ["id", "post_id", "post_body", "user_id"],
 					include: {
-						model: Comment,
+						model: User,
 						attributes: ["id", "username", "email"],
 					},
 				},
