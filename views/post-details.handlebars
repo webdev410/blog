@@ -16,8 +16,45 @@
 			</a>
 			<p class="card-text"> {{post.post_body}}</p>
 		</div>
+
+		<div class="comments">
+
+
+
+			{{#each post.user.comments}}
+				<div class="card">
+					<div class="card-body">
+						<blockquote class="blockquote mb-0">
+							<p>{{comment_body}}</p>
+
+
+						</blockquote>
+					</div>
+				</div>
+				<footer class="blockquote-footer">Posted by <cite title="Source Title">{{username}}</cite>
+				</footer>
+			{{/each}}
+
+		</div>
+
+
+
+
+
+
+
+
+
+
 		{{>writeComment}}
-		{{>showComments}}
+
+
+
+
+
+
+
+		{{!-- {{>showComments}} --}}
 	</section>
 
 </div>
