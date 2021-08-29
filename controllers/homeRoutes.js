@@ -1,6 +1,6 @@
-const router = require("express").Router();
+const sequelize = require("../config/connection");
 const { Post, User, Comment } = require("../models");
-const withAuth = require("../utils/auth");
+const router = require("express").Router();
 
 router.get("/", async (req, res) => {
 	try {
@@ -59,54 +59,141 @@ router.get("/register", (req, res) => {
 		title: "Register",
 	});
 });
-// ! FRONT END ROUTES
+//
+// router.get("/", (req, res) => {
+// 	Post.findAll({
+// 		attributes: ["id", "post_title", "post_body", "createdAt"],
+// 		include: [
+// 			{
+// 				model: Comment,
+// 				attributes: [
+// 					"id",
+// 					"comment_body",
+// 					"post_id",
+// 					"user_id",
+// 					"createdAt",
+// 				],
+// 				include: {
+// 					model: User,
+// 					attributes: ["username", "email"],
+// 				},
+// 			},
+// 			{
+// 				model: User,
+// 				attributes: ["username", "email"],
+// 			},
+// 		],
+// 	})
+//
+// 		.then((postData) => {
+// 			const posts = postData.map((post) => post.get({ plain: true }));
+// 			res.render("home", { posts, logged_in: req.session.logged_in });
+// 		})
+// 		.catch((err) => {
+// 			console.log(err);
+// 			res.status(500).json(err);
+// 		});
+// });
+//
+// router.get("/login", (req, res) => {
+// 	if (req.session.logged_in) {
+// 		res.redirect("/");
+// 		return;
+// 	}
+// 	res.render("login");
+// });
+//
+// router.get("/register", (req, res) => {
+// 	res.render("register");
+// });
 
-// * Route for /dash
-router.get("/dashboard", async (req, res) => {
-	console.info(`${req.method} request received for dashboard`);
-	// gets all posts to display on the page
-	const postData = await Post.findAll({
-		attributes: ["id", "post_title", "post_body", "user_id", "createdAt"],
-	});
-
-	const posts = postData.map((post) => post.get({ plain: true }));
-	if (!req.session.logged_in) {
-		res.redirect("/login");
-	} else {
-		res.render("dashboard", {
-			posts,
-			//pass data into page
-			logged_in: true,
-			username: req.session.username,
-			email: req.session.email,
-			// page information
-			title: "Dashboard",
-		});
-	}
-});
-// * Front-End Route for one post's details
-router.get("/post/:id", async (req, res) => {
-	const postData = await Post.findByPk(req.params.id, {
-		attributes: ["id", "post_title", "post_body", "user_id", "createdAt"],
+router.get("/post/:id", (req, res) => {
+	Post.findOne({
+		where: {
+			id: req.params.id,
+		},
+		attributes: ["id", "post_title", "post_body", "createdAt"],
 		include: [
 			{
-				model: User,
-				attributes: ["id", "username", "email"],
+				model: Comment,
+				attributes: [
+					"id",
+					"comment_body",
+					"post_id",
+					"user_id",
+					"createdAt",
+				],
 				include: {
-					model: Comment,
-					attributes: ["id", "comment_body", "post_id", "user_id"],
+					model: User,
+					attributes: ["username"],
 				},
 			},
+			{
+				model: User,
+				attributes: ["username", "email"],
+			},
 		],
-	});
+	})
+		.then((postData) => {
+			if (!postData) {
+				res.status(404).json({ message: "No post found with this id" });
+				return;
+			}
+			const post = postData.get({ plain: true });
+			console.log(post);
+			res.render("post-details", {
+				post,
+				logged_in: req.session.logged_in,
+			});
+		})
+		.catch((err) => {
+			console.log(err);
+			res.status(500).json(err);
+		});
+});
+router.get("/show-comments", (req, res) => {
+	Post.findOne({
+		where: {
+			id: req.params.id,
+		},
+		attributes: ["id", "post_title", "post_body", "createdAt"],
+		include: [
+			{
+				model: Comment,
+				attributes: [
+					"id",
+					"comment_body",
+					"post_id",
+					"user_id",
+					"createdAt",
+				],
+				include: {
+					model: User,
+					attributes: ["username", "email"],
+				},
+			},
+			{
+				model: User,
+				attributes: ["username", "email"],
+			},
+		],
+	})
+		.then((postData) => {
+			if (!postData) {
+				res.status(404).json({ message: "No post found with this id" });
+				return;
+			}
+			const post = postData.get({ plain: true });
 
-	const post = postData.get({ plain: true });
-	res.render("post-details", {
-		post,
-		username: req.session.username,
-		email: req.session.email,
-		logged_in: req.session.logged_in,
-	});
+			res.render("show-comments", {
+				post,
+				logged_in: req.session.logged_in,
+			});
+		})
+		.catch((err) => {
+			console.log(err);
+			res.status(500).json(err);
+		});
 });
 
 module.exports = router;
