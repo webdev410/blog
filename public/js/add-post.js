@@ -1,7 +1,7 @@
 async function newFormHandler(event) {
 	event.preventDefault();
 
-	const title = document.querySelector('input[name="post-title"]').value;
+	const title = document.querySelector('input[name="title"]').value;
 	const post_content = document.querySelector('input[name="post_content"]').value;
 
 	const response = await fetch(`/api/posts`, {
