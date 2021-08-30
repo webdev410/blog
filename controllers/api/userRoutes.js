@@ -21,20 +21,20 @@ router.get("/:id", (req, res) => {
 		include: [
 			{
 				model: Post,
-				attributes: ["id", "post_title", "post_body", "created_at"],
+				attributes: ["id", "title", "content", "created_at"],
 			},
 
 			{
 				model: Comment,
-				attributes: ["id", "comment_body", "createdAt"],
+				attributes: ["id", "comment_body", "created_at"],
 				include: {
 					model: Post,
-					attributes: ["post_title"],
+					attributes: ["title"],
 				},
 			},
 			{
 				model: Post,
-				attributes: ["post_title"],
+				attributes: ["title"],
 			},
 		],
 	})
@@ -54,7 +54,6 @@ router.get("/:id", (req, res) => {
 router.post("/", (req, res) => {
 	User.create({
 		username: req.body.username,
-		email: req.body.email,
 		password: req.body.password,
 	})
 
@@ -62,7 +61,6 @@ router.post("/", (req, res) => {
 			req.session.save(() => {
 				req.session.user_id = userData.id;
 				req.session.username = userData.username;
-				req.session.email = userData.email;
 				req.session.logged_in = true;
 
 				res.json(userData);
@@ -77,13 +75,13 @@ router.post("/", (req, res) => {
 router.post("/login", (req, res) => {
 	User.findOne({
 		where: {
-			email: req.body.email,
+			username: req.body.username,
 		},
 	})
 		.then((userData) => {
 			if (!userData) {
 				res.status(400).json({
-					message: "No user with that email address!",
+					message: "No user with that username!",
 				});
 				return;
 			}
@@ -96,9 +94,7 @@ router.post("/login", (req, res) => {
 			req.session.save(() => {
 				req.session.user_id = userData.id;
 				req.session.username = userData.username;
-				req.session.email = userData.email;
 				req.session.logged_in = true;
-
 				res.json({
 					user: userData,
 					message: "You are now logged in!",

@@ -1,46 +1,44 @@
 const sequelize = require("../config/connection");
 const { Post, User, Comment } = require("../models");
 const router = require("express").Router();
-
-router.get("/", async (req, res) => {
-	try {
-		// gets all posts to display on the page
-		const postData = await Post.findAll({
-			attributes: [
-				"id",
-				"post_title",
-				"post_body",
-				"user_id",
-				"createdAt",
-			],
-			include: [
-				{
+router.get("/", (req, res) => {
+	Post.findAll({
+		attributes: ["id", "title", "content", "created_at"],
+		include: [
+			{
+				model: Comment,
+				attributes: [
+					"id",
+					"comment_body",
+					"post_id",
+					"user_id",
+					"created_at",
+				],
+				include: {
 					model: User,
-					attributes: ["id", "username", "email"],
-					include: {
-						model: Comment,
-						attributes: [
-							"id",
-							"comment_body",
-							"post_id",
-							"user_id",
-						],
-					},
+					attributes: ["username"],
 				},
-			],
-		});
+			},
+			{
+				model: User,
+				attributes: ["username"],
+			},
+		],
+	})
 
-		const posts = postData.map((post) => post.get({ plain: true }));
-		res.render("home", {
-			posts,
-			logged_in: req.session.logged_in,
-			email: req.session.email,
-			username: req.session.username,
-			title: "Home",
+		.then((postData) => {
+			const posts = postData.map((post) => post.get({ plain: true }));
+			res.render("home", {
+				posts,
+				username: req.session.username,
+				logged_in: req.session.logged_in,
+				title: "Home",
+			});
+		})
+		.catch((err) => {
+			console.log(err);
+			res.status(500).json(err);
 		});
-	} catch (err) {
-		res.status(500).json(err);
-	}
 });
 
 router.get("/login", (req, res) => {
@@ -50,69 +48,23 @@ router.get("/login", (req, res) => {
 	}
 	res.render("login", {
 		title: "Login",
+		username: req.session.username,
 	});
 });
-// Route for register form
-router.get("/register", (req, res) => {
-	res.render("register", {
-		logged_in: req.session.logged_in,
-		title: "Register",
+
+router.get("/signup", (req, res) => {
+	res.render("signup", {
+		title: "Sign Up",
+		username: req.session.username,
 	});
 });
-//
-// router.get("/", (req, res) => {
-// 	Post.findAll({
-// 		attributes: ["id", "post_title", "post_body", "createdAt"],
-// 		include: [
-// 			{
-// 				model: Comment,
-// 				attributes: [
-// 					"id",
-// 					"comment_body",
-// 					"post_id",
-// 					"user_id",
-// 					"createdAt",
-// 				],
-// 				include: {
-// 					model: User,
-// 					attributes: ["username", "email"],
-// 				},
-// 			},
-// 			{
-// 				model: User,
-// 				attributes: ["username", "email"],
-// 			},
-// 		],
-// 	})
-//
-// 		.then((postData) => {
-// 			const posts = postData.map((post) => post.get({ plain: true }));
-// 			res.render("home", { posts, logged_in: req.session.logged_in });
-// 		})
-// 		.catch((err) => {
-// 			console.log(err);
-// 			res.status(500).json(err);
-// 		});
-// });
-//
-// router.get("/login", (req, res) => {
-// 	if (req.session.logged_in) {
-// 		res.redirect("/");
-// 		return;
-// 	}
-// 	res.render("login");
-// });
-//
-// router.get("/register", (req, res) => {
-// 	res.render("register");
-// });
 
 router.get("/post/:id", (req, res) => {
 	Post.findOne({
 		where: {
 			id: req.params.id,
 		},
-		attributes: ["id", "post_title", "post_body", "createdAt"],
+		attributes: ["id", "content", "title", "created_at"],
 		include: [
 			{
 				model: Comment,
@@ -121,7 +73,7 @@ router.get("/post/:id", (req, res) => {
 					"comment_body",
 					"post_id",
 					"user_id",
-					"createdAt",
+					"created_at",
 				],
 				include: {
 					model: User,
@@ -130,7 +82,7 @@ router.get("/post/:id", (req, res) => {
 			},
 			{
 				model: User,
-				attributes: ["username", "email"],
+				attributes: ["username"],
 			},
 		],
 	})
@@ -144,6 +96,8 @@ router.get("/post/:id", (req, res) => {
 			res.render("post-details", {
 				post,
 				logged_in: req.session.logged_in,
+				username: req.session.username,
+				title: "Post",
 			});
 		})
 		.catch((err) => {
@@ -151,12 +105,12 @@ router.get("/post/:id", (req, res) => {
 			res.status(500).json(err);
 		});
 });
-router.get("/show-comments", (req, res) => {
+router.get("/posts-comments", (req, res) => {
 	Post.findOne({
 		where: {
 			id: req.params.id,
 		},
-		attributes: ["id", "post_title", "post_body", "createdAt"],
+		attributes: ["id", "content", "title", "created_at"],
 		include: [
 			{
 				model: Comment,
@@ -165,16 +119,16 @@ router.get("/show-comments", (req, res) => {
 					"comment_body",
 					"post_id",
 					"user_id",
-					"createdAt",
+					"created_at",
 				],
 				include: {
 					model: User,
-					attributes: ["username", "email"],
+					attributes: ["username"],
 				},
 			},
 			{
 				model: User,
-				attributes: ["username", "email"],
+				attributes: ["username"],
 			},
 		],
 	})
@@ -185,8 +139,9 @@ router.get("/show-comments", (req, res) => {
 			}
 			const post = postData.get({ plain: true });
 
-			res.render("show-comments", {
+			res.render("posts-comments", {
 				post,
+				username: req.session.username,
 				logged_in: req.session.logged_in,
 			});
 		})

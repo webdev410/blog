@@ -1,22 +1,22 @@
 [
 	{
+		"id": 1,
 		"username": "Andrew",
-		"email": "andrewkeiser@gmail.com",
 		"password": "password"
 	},
 	{
+		"id": 2,
 		"username": "L Figgy",
-		"email": "laurel@laurelfigueroa.com",
 		"password": "password"
 	},
 	{
+		"id": 3,
 		"username": "Mike",
-		"email": "mike@example.com",
 		"password": "password"
 	},
 	{
+		"id": 4,
 		"username": "Test User",
-		"email": "test@example.com",
 		"password": "password"
 	}
 ]

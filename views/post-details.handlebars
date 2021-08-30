@@ -1,60 +1,26 @@
-<div class="row justify-content-center mt-3">
+{{> post-info post}}
 
-	<section class="card post-details">
-		<div class="card-header">
-
-			{{#if post}}
-				<i class="fas fa-user mr-2"></i>
-				<h5 style="display: inline;">{{post.user.username}}</h5>
-			{{/if}}
-		</div>
-
-		<div class="card-body">
-			<p class="card-text date">Posted: {{format_date post.createdAt}}</p>
-			<a href="/post/{{post.id}}">
-				<h5 class="card-title">{{post.post_title}}</h5>
-			</a>
-			<p class="card-text"> {{post.post_body}}</p>
-		</div>
-
-		<div class="comments">
-
-
-
-			{{#each post.user.comments}}
-				<div class="card">
-					<div class="card-body">
-						<blockquote class="blockquote mb-0">
-							<p>{{comment_body}}</p>
-
-
-						</blockquote>
-					</div>
-				</div>
-				<footer class="blockquote-footer">Posted by <cite title="Source Title">{{username}}</cite>
-				</footer>
-			{{/each}}
-
-		</div>
-
-
-
-
-
-
-
-
-
-
-		{{>write-comment}}
-
-
-
-
-
-
-
-		{{!-- {{>showComments}} --}}
-	</section>
-
+{{#if logged_in}}
+    <div class="card">
+        <h3 class="card-header"></h3>
+        <form class="card-body comment-form" id="comment-form">
+            <div class="form-group">
+                <input class="col-12" type="text" id="comment" id="comment-body" name="comment-body"
+                    placeholder="Write a comment..."></input>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-sm btn-secondary" id="post-comment"><i
+                        class="fas fa-reply-all text-right"></i></button>
+            </div>
+        </form>
+    </div>
+{{/if}}
+<div class="row justify-content-center">
+    <div class="col-10">
+        {{> show-comments post.comments}}
+    </div>
 </div>
+
+{{#if logged_in}}
+    <script src="/js/save-comment.js"></script>
+{{/if}}

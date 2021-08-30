@@ -7,7 +7,7 @@ router.get("/", withAuth, (req, res) => {
 		where: {
 			user_id: req.session.user_id,
 		},
-		attributes: ["id", "post_title", "post_body", "createdAt"],
+		attributes: ["id", "title", "content", "created_at"],
 		include: [
 			{
 				model: Comment,
@@ -16,23 +16,28 @@ router.get("/", withAuth, (req, res) => {
 					"comment_body",
 					"post_id",
 					"user_id",
-					"createdAt",
+					"created_at",
 				],
 				include: {
 					model: User,
-					attributes: ["username", "email"],
+					attributes: ["username"],
 				},
 			},
 			{
 				model: User,
-				attributes: ["username", "email"],
+				attributes: ["username"],
 			},
 		],
 	})
 
 		.then((postData) => {
 			const posts = postData.map((post) => post.get({ plain: true }));
-			res.render("dashboard", { posts, logged_in: true });
+			res.render("dashboard", {
+				posts,
+				username: req.session.username,
+				logged_in: true,
+				title: "Dashboard",
+			});
 		})
 		.catch((err) => {
 			console.log(err);
@@ -45,11 +50,11 @@ router.get("/edit/:id", withAuth, (req, res) => {
 			id: req.params.id,
 		},
 
-		attributes: ["id", "post_title", "post_body", "createdAt"],
+		attributes: ["id", "title", "content", "created_at"],
 		include: [
 			{
 				model: User,
-				attributes: ["username", "email"],
+				attributes: ["username"],
 			},
 			{
 				model: Comment,
@@ -58,11 +63,11 @@ router.get("/edit/:id", withAuth, (req, res) => {
 					"comment_body",
 					"post_id",
 					"user_id",
-					"createdAt",
+					"created_at",
 				],
 				include: {
 					model: User,
-					attributes: ["username", "email"],
+					attributes: ["username"],
 				},
 			},
 		],
@@ -74,7 +79,12 @@ router.get("/edit/:id", withAuth, (req, res) => {
 			}
 
 			const post = postData.get({ plain: true });
-			res.render("edit-post", { post, logged_in: true });
+			res.render("edit-post", {
+				post,
+				username: req.session.username,
+				logged_in: true,
+				title: "Edit Post",
+			});
 		})
 
 		.catch((err) => {
@@ -83,7 +93,11 @@ router.get("/edit/:id", withAuth, (req, res) => {
 		});
 });
 router.get("/new", (req, res) => {
-	res.render("new-post");
+	res.render("add-post", {
+		title: "Add Post",
+		username: req.session.username,
+		logged_in: true,
+	});
 });
 
 module.exports = router;

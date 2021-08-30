@@ -40,13 +40,3 @@ i {
 form {
     display: block;
 }
-
-#post-comment {
-    position: absolute;
-    right: 9px;
-    bottom: 25px;
-    width: 57px;
-    height: 34px;
-    /* color: black; */
-    border: none;
-}
